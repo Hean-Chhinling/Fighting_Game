@@ -22,14 +22,18 @@ YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 
 # define fighter variable
-CAT_SIZE = 40
+CAT_SIZE = 50
 CAT_SCALE = 5
 CAT_OFFSET = [17, 15]
 CAT_DATA = [CAT_SIZE, CAT_SCALE, CAT_OFFSET]
-GIRLGUN_SIZE = 50
+GIRLGUN_SIZE = 55.71
 GIRLGUN_SCALE = 5
 GIRLGUN_OFFSET = [20, 17]
 GIRLGUN_DATA = [GIRLGUN_SIZE, GIRLGUN_SCALE, GIRLGUN_OFFSET]
+PIRATE_SIZE = 73
+PIRATE_SCALE = 4
+PIRATE_OFFSET = [20, 17]
+PIRATE_DATA = [PIRATE_SIZE, PIRATE_SCALE, PIRATE_OFFSET]
 
 # Uploading the background image
 background_image = pygame.image.load("assets/backgrounds/university_background.jpg").convert_alpha()
@@ -37,15 +41,17 @@ background_image = pygame.image.load("assets/backgrounds/university_background.j
 # loading the character
 cat_sheet = pygame.image.load("assets/characters/cat.png").convert_alpha()
 girlgun_sheet = pygame.image.load("assets/characters/girlgun_bg.png").convert_alpha()
+pirate_sheet = pygame.image.load("assets/characters/pirate.png").convert_alpha()
 
 # Define number of steps in each animation
 CAT_ANIMATION_STEPS = [10, 10, 10, 10, 10, 10]
 GIRLGUN_ANIMATION_STEPS = [5, 5, 8, 8, 5, 5, 8, 8]
+PIRATE_ANIMATION_STEPS = [8, 6, 8, 7, 7, 4, 5]
 
 # Uploading the player
 
 player1 = Fighter(100, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS)
-player2 = Fighter(800, 550, False, GIRLGUN_DATA, girlgun_sheet, GIRLGUN_ANIMATION_STEPS)
+player2 = Fighter(800, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS)
 
 
 def draw_bg():
@@ -79,7 +85,7 @@ while running:
 
     # move player
     player1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, player2)
-    # player2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, player1)
+    player2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, player1)
 
     # update animation
     player1.update_animation()
