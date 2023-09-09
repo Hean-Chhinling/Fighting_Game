@@ -143,7 +143,7 @@ class Fighter():
         else:
             self.update_action(0)
 
-        animation_cooldown = 200
+        animation_cooldown = 150
         self.image = self.animation_list[self.action][self.frame_index]
         # Check if time has passed for new update
         if pygame.time.get_ticks() - self.update_time > animation_cooldown:

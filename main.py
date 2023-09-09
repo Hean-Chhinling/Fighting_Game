@@ -35,14 +35,10 @@ CAT_SIZE = 64
 CAT_SCALE = 5
 CAT_OFFSET = [17, 15]
 CAT_DATA = [CAT_SIZE, CAT_SCALE, CAT_OFFSET]
-GIRLGUN_SIZE = 55.71
-GIRLGUN_SCALE = 5
-GIRLGUN_OFFSET = [20, 17]
-GIRLGUN_DATA = [GIRLGUN_SIZE, GIRLGUN_SCALE, GIRLGUN_OFFSET]
-PIRATE_SIZE = 73
-PIRATE_SCALE = 4
-PIRATE_OFFSET = [20, 17]
-PIRATE_DATA = [PIRATE_SIZE, PIRATE_SCALE, PIRATE_OFFSET]
+DOG_SIZE = 64
+DOG_SCALE = 5
+DOG_OFFSET = [20, 15]
+DOG_DATA = [DOG_SIZE, DOG_SCALE, DOG_OFFSET]
 
 # load music and sounds
 pygame.mixer.music.load("assets/sounds/music.mp3")
@@ -56,18 +52,16 @@ background_image = pygame.image.load("assets/backgrounds/university_background.j
 
 # loading the character
 cat_sheet = pygame.image.load("assets/characters/cat_animation.png").convert_alpha()
-girlgun_sheet = pygame.image.load("assets/characters/girlgun_bg.png").convert_alpha()
-pirate_sheet = pygame.image.load("assets/characters/pirate.png").convert_alpha()
+dog_sheet = pygame.image.load("assets/characters/dog_0.png").convert_alpha()
 
 # Define number of steps in each animation
 CAT_ANIMATION_STEPS = [4, 8, 8, 10, 9, 7, 6, 8, 13, 10, 12, 6, 8, 8, 8, 6]
-GIRLGUN_ANIMATION_STEPS = [5, 5, 8, 8, 5, 5, 8, 8]
-PIRATE_ANIMATION_STEPS = [8, 6, 8, 7, 7, 4, 5]
+DOG_ANIMATION_STEPS = [4, 8, 8, 10, 9, 7, 6, 8, 13, 10, 12, 6, 8, 8, 8, 6]
 
 # Uploading the player
 
 player1 = Fighter(1, 100, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch)
-player2 = Fighter(2, 800, 550, True, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch)
+player2 = Fighter(2, 800, 550, True, DOG_DATA, dog_sheet, DOG_ANIMATION_STEPS, punch)
 
 # Loading the font
 count_font = pygame.font.Font("assets/fonts/turok.ttf", 200)
@@ -151,7 +145,7 @@ while running:
             round_over = False
             intro_count = 3
             player1 = Fighter(1, 100, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch)
-            player2 = Fighter(2, 800, 550, True, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch)
+            player2 = Fighter(2, 800, 550, True, DOG_DATA, dog_sheet, DOG_ANIMATION_STEPS, punch)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
