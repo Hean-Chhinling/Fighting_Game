@@ -16,7 +16,7 @@ pygame.display.set_caption("Letter Fighting")
 
 # set frame rate
 clock = pygame.time.Clock()
-FPS = 120
+FPS = 60
 
 # Define Color
 RED = (255, 0, 0)
@@ -31,7 +31,7 @@ round_over = False
 ROUND_OVER_COOLDOWN = 2000
 
 # define fighter variable
-CAT_SIZE = 50
+CAT_SIZE = 64
 CAT_SCALE = 5
 CAT_OFFSET = [17, 15]
 CAT_DATA = [CAT_SIZE, CAT_SCALE, CAT_OFFSET]
@@ -55,12 +55,12 @@ punch.set_volume(0.5)
 background_image = pygame.image.load("assets/backgrounds/university_background.jpg").convert_alpha()
 
 # loading the character
-cat_sheet = pygame.image.load("assets/characters/cat.png").convert_alpha()
+cat_sheet = pygame.image.load("assets/characters/cat_animation.png").convert_alpha()
 girlgun_sheet = pygame.image.load("assets/characters/girlgun_bg.png").convert_alpha()
 pirate_sheet = pygame.image.load("assets/characters/pirate.png").convert_alpha()
 
 # Define number of steps in each animation
-CAT_ANIMATION_STEPS = [10, 10, 10, 10, 10, 10]
+CAT_ANIMATION_STEPS = [4, 8, 8, 10, 9, 7, 6, 8, 13, 10, 12, 6, 8, 8, 8, 6]
 GIRLGUN_ANIMATION_STEPS = [5, 5, 8, 8, 5, 5, 8, 8]
 PIRATE_ANIMATION_STEPS = [8, 6, 8, 7, 7, 4, 5]
 

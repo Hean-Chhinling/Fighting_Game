@@ -130,20 +130,20 @@ class Fighter():
             self.alive = False
             self.update_action(3)
         elif self.hit:
-            self.update_action(3)
+            self.update_action(4)
         elif self.attacking == True:
             if self.attack_type == 1:
-                self.update_action(5)
+                self.update_action(11)
             elif self.attack_type == 2:
-                self.update_action(2)
+                self.update_action(15)
         elif self.jump == True:
-            self.update_action(4)
+            self.update_action(2)
         elif self.running == True:
             self.update_action(1)
         else:
             self.update_action(0)
 
-        animation_cooldown = 50
+        animation_cooldown = 200
         self.image = self.animation_list[self.action][self.frame_index]
         # Check if time has passed for new update
         if pygame.time.get_ticks() - self.update_time > animation_cooldown:
@@ -158,11 +158,11 @@ class Fighter():
             else:
                 self.frame_index = 0
                 # check if an attack was executed
-                if self.action == 2 or self.action == 5:
+                if self.action == 11 or self.action == 15:
                     self.attacking = False
                     self.attack_cooldown = 10
                 # check if damage was taken
-                if self.action == 3:
+                if self.action == 4:
                     self.hit = False
                     # check if the player is in the middle of attack
                     self.attacking = False
