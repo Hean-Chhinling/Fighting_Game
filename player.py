@@ -128,12 +128,12 @@ class Fighter():
         if self.health <= 0:
             self.health = 0
             self.alive = False
-            self.update_action(3)
+            self.update_action(4)
         elif self.hit:
             self.update_action(4)
         elif self.attacking == True:
             if self.attack_type == 1:
-                self.update_action(11)
+                self.update_action(3)
             elif self.attack_type == 2:
                 self.update_action(15)
         elif self.jump == True:
@@ -158,7 +158,7 @@ class Fighter():
             else:
                 self.frame_index = 0
                 # check if an attack was executed
-                if self.action == 11 or self.action == 15:
+                if self.action == 3 or self.action == 15:
                     self.attacking = False
                     self.attack_cooldown = 10
                 # check if damage was taken
