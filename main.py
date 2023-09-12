@@ -42,7 +42,7 @@ DOG_DATA = [DOG_SIZE, DOG_SCALE, DOG_OFFSET]
 
 # load music and sounds
 pygame.mixer.music.load("assets/sounds/music.mp3")
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1, 0.0, 5000)
 punch = pygame.mixer.Sound("assets/sounds/punch.mp3")
 punch.set_volume(0.5)
@@ -66,6 +66,7 @@ player2 = Fighter(2, 800, 550, True, DOG_DATA, dog_sheet, DOG_ANIMATION_STEPS, p
 # Loading the font
 count_font = pygame.font.Font("assets/fonts/turok.ttf", 200)
 score_font = pygame.font.Font("assets/fonts/turok.ttf", 30)
+paused_font = pygame.font.Font("assets/fonts/turok.ttf", 40)
 
 # function for drawing text
 
@@ -73,6 +74,11 @@ score_font = pygame.font.Font("assets/fonts/turok.ttf", 30)
 def draw_text(text, font, text_color, x, y):
     img = font.render(text, True, text_color)
     screen.blit(img, (x, y))
+
+# Game Pause controller
+
+
+game_paused = False
 
 
 def draw_bg():
@@ -100,54 +106,64 @@ while running:
 
     draw_bg()
 
-    # show the player's health
-    draw_health_bar(player1.health, 20, 20)
-    draw_health_bar(player2.health, 580, 20)
-    draw_text("CAT1: " + str(score[0]), score_font, RED, 20, 60)
-    draw_text("CAT2: " + str(score[1]), score_font, RED, 580, 60)
+    if game_paused == True:
+        draw_text("Your game has been pasued. Press 'R' to Resume", paused_font, WHITE, 85, 350)
 
-    # update countdown
-    if intro_count <= 0:
-        # move player
-        player1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, player2, round_over)
-        player2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, player1, round_over)
     else:
-        # display count timer
-        draw_text(str(intro_count), count_font, RED, SCREEN_WIDTH / 2 - 40, SCREEN_HEIGHT / 3)
-        # update count timer
-        if (pygame.time.get_ticks() - last_count_update) >= 1000:
-            intro_count -= 1
-            last_count_update = pygame.time.get_ticks()
-            print(intro_count)
+        # show the player's health
+        draw_health_bar(player1.health, 20, 20)
+        draw_health_bar(player2.health, 580, 20)
+        draw_text("CAT1: " + str(score[0]), score_font, RED, 20, 60)
+        draw_text("CAT2: " + str(score[1]), score_font, RED, 580, 60)
 
-    # update animation
-    player1.update_animation()
-    player2.update_animation()
+        # update countdown
+        if intro_count <= 0:
+            # move player
+            player1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, player2, round_over)
+            player2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, player1, round_over)
+        else:
+            # display count timer
+            draw_text(str(intro_count), count_font, RED, SCREEN_WIDTH / 2 - 40, SCREEN_HEIGHT / 3)
+            # update count timer
+            if (pygame.time.get_ticks() - last_count_update) >= 1000:
+                intro_count -= 1
+                last_count_update = pygame.time.get_ticks()
+                print(intro_count)
 
-    # draw player
-    player1.draw(screen)
-    player2.draw(screen)
+        # update animation
+        player1.update_animation()
+        player2.update_animation()
 
-    # check for player defeat
+        # draw player
+        player1.draw(screen)
+        player2.draw(screen)
 
-    if round_over == False:
-        if player1.alive == False:
-            score[1] += 1
-            round_over = True
-            round_over_time = pygame.time.get_ticks()
-        elif player2.alive == False:
-            score[0] += 1
-            round_over = True
-            round_over_time = pygame.time.get_ticks()
-    else:
-        draw_text("Victory!!", count_font, RED, SCREEN_WIDTH / 2 - 350, SCREEN_HEIGHT / 3)
-        if pygame.time.get_ticks() - round_over_time > ROUND_OVER_COOLDOWN:
-            round_over = False
-            intro_count = 3
-            player1 = Fighter(1, 100, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch)
-            player2 = Fighter(2, 800, 550, True, DOG_DATA, dog_sheet, DOG_ANIMATION_STEPS, punch)
+        # check for player defeat
+
+        if round_over == False:
+            if player1.alive == False:
+                score[1] += 1
+                round_over = True
+                round_over_time = pygame.time.get_ticks()
+            elif player2.alive == False:
+                score[0] += 1
+                round_over = True
+                round_over_time = pygame.time.get_ticks()
+        else:
+            draw_text("Victory!!", count_font, RED, SCREEN_WIDTH / 2 - 350, SCREEN_HEIGHT / 3)
+            if pygame.time.get_ticks() - round_over_time > ROUND_OVER_COOLDOWN:
+                round_over = False
+                intro_count = 3
+                player1 = Fighter(1, 100, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch)
+                player2 = Fighter(2, 800, 550, True, DOG_DATA, dog_sheet, DOG_ANIMATION_STEPS, punch)
+
 
     for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                game_paused = True
+            if event.key == pygame.K_r:
+                game_paused = False
         if event.type == pygame.QUIT:
             running = False
 
