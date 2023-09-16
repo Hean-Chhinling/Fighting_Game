@@ -2,6 +2,7 @@ import pygame
 import sys
 from pygame import mixer
 from player import Fighter
+import button
 
 # Initialize Pygame and Mixer for audio
 pygame.init()
@@ -68,7 +69,15 @@ count_font = pygame.font.Font("assets/fonts/turok.ttf", 200)
 score_font = pygame.font.Font("assets/fonts/turok.ttf", 30)
 paused_font = pygame.font.Font("assets/fonts/turok.ttf", 40)
 
-# function for drawing text
+# Load button images
+newgame_img = pygame.image.load("assets/buttons/button_newgame.jpg")
+resume_img = pygame.image.load("assets/buttons/button_resume.png")
+quit_img = pygame.image.load("assets/buttons/button_quit.png")
+
+# create button instances
+newgame_button = button.Button(304, 250, newgame_img, 0.5)
+resume_button = button.Button(400, 360, resume_img, 1)
+quit_button = button.Button(430, 460, quit_img, 1)
 
 
 def draw_text(text, font, text_color, x, y):
@@ -79,6 +88,8 @@ def draw_text(text, font, text_color, x, y):
 
 
 game_paused = False
+game_start = False
+menu_buttons = False
 
 
 def draw_bg():
@@ -106,11 +117,12 @@ while running:
 
     draw_bg()
 
-    if game_paused == True:
-        draw_text("Your game has been pasued. Press 'R' to Resume", paused_font, WHITE, 85, 350)
+    if not menu_buttons:
+        resume_button.draw(screen)
+        newgame_button.draw(screen)
+        quit_button.draw(screen)
 
-    else:
-        # show the player's health
+    if game_start:
         draw_health_bar(player1.health, 20, 20)
         draw_health_bar(player2.health, 580, 20)
         draw_text("CAT1: " + str(score[0]), score_font, RED, 20, 60)
@@ -164,6 +176,10 @@ while running:
                 game_paused = True
             if event.key == pygame.K_r:
                 game_paused = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if newgame_button.rect.collidepoint(event.pos):
+                game_start = True
+                menu_buttons = True
         if event.type == pygame.QUIT:
             running = False
 
