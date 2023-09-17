@@ -89,7 +89,7 @@ def draw_text(text, font, text_color, x, y):
 
 game_paused = False
 game_start = False
-menu_buttons = False
+show_menu_buttons = True
 
 
 def draw_bg():
@@ -117,12 +117,19 @@ while running:
 
     draw_bg()
 
-    if not menu_buttons:
-        resume_button.draw(screen)
+    if show_menu_buttons:
+        # resume_button.draw(screen)
         newgame_button.draw(screen)
         quit_button.draw(screen)
 
+    if game_paused:
+        resume_button.draw(screen)
+        if show_menu_buttons:
+            newgame_button.draw(screen)
+        quit_button.draw(screen)
+
     if game_start:
+        show_menu_buttons = False
         draw_health_bar(player1.health, 20, 20)
         draw_health_bar(player2.health, 580, 20)
         draw_text("CAT1: " + str(score[0]), score_font, RED, 20, 60)
@@ -174,12 +181,15 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 game_paused = True
-            if event.key == pygame.K_r:
-                game_paused = False
+                game_start = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if newgame_button.rect.collidepoint(event.pos):
                 game_start = True
-                menu_buttons = True
+            if resume_button.rect.collidepoint(event.pos):
+                game_paused = False
+                game_start = True
+            if quit_button.rect.collidepoint(event.pos):
+                running = False
         if event.type == pygame.QUIT:
             running = False
 
