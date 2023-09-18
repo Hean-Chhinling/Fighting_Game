@@ -52,6 +52,7 @@ jump.set_volume(0.3)
 
 # Uploading the background image
 background_image = pygame.image.load("assets/backgrounds/university_background.jpg").convert_alpha()
+paused_image = pygame.image.load("assets/backgrounds/unideb.jpg").convert_alpha()
 
 # loading the character
 cat_sheet = pygame.image.load("assets/characters/cat_animation.png").convert_alpha()
@@ -99,6 +100,10 @@ def draw_bg():
     screen.blit(scaled_bg, (0, 0))
 
 
+def draw_paused():
+    scale_bg = pygame.transform.scale(paused_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen.blit(scale_bg, (0, 0))
+
 # Drawing Health bar
 
 
@@ -121,11 +126,13 @@ while running:
     draw_bg()
 
     if show_menu_buttons:
+        draw_paused()
         # resume_button.draw(screen)
         newgame_button.draw(screen)
         quit_button.draw(screen)
 
     if game_paused:
+        draw_paused()
         resume_button.draw(screen)
         if show_menu_buttons:
             newgame_button.draw(screen)
