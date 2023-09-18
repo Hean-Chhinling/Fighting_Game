@@ -2,7 +2,7 @@ import pygame
 
 
 class Fighter():
-    def __init__(self, player, x, y, flip, data, sprite_sheet, animation_steps, sound):
+    def __init__(self, player, x, y, flip, data, sprite_sheet, animation_steps, sound, effect):
         self.player = player
         self.size = data[0]
         self.image_scale = data[1]
@@ -21,6 +21,7 @@ class Fighter():
         self.attack_cooldown = 0
         self.attacking = False
         self.attack_sound = sound
+        self.jump_sound = effect
         self.hit = False
         self.health = 100
         self.alive = True
@@ -63,6 +64,7 @@ class Fighter():
                 if key[pygame.K_w] and self.jump == False:
                     self.vel_y = -30
                     self.jump = True
+                    self.jump_sound.play()
                 # Attack Key
                 if key[pygame.K_q] or key[pygame.K_e]:
                     self.attack(surface, target)
@@ -83,6 +85,7 @@ class Fighter():
                 if key[pygame.K_UP] and self.jump == False:
                     self.vel_y = -30
                     self.jump = True
+                    self.jump_sound.play()
                 # Attack Key
                 if key[pygame.K_p] or key[pygame.K_l]:
                     self.attack(surface, target)

@@ -47,6 +47,8 @@ pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1, 0.0, 5000)
 punch = pygame.mixer.Sound("assets/sounds/punch.mp3")
 punch.set_volume(0.5)
+jump = pygame.mixer.Sound("assets/sounds/jump.mp3")
+jump.set_volume(0.3)
 
 # Uploading the background image
 background_image = pygame.image.load("assets/backgrounds/university_background.jpg").convert_alpha()
@@ -61,8 +63,8 @@ DOG_ANIMATION_STEPS = [4, 8, 8, 10, 9, 7, 6, 8, 13, 10, 12, 6, 8, 8, 8, 6]
 
 # Uploading the player
 
-player1 = Fighter(1, 100, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch)
-player2 = Fighter(2, 800, 550, True, DOG_DATA, dog_sheet, DOG_ANIMATION_STEPS, punch)
+player1 = Fighter(1, 100, 550, False, CAT_DATA, cat_sheet, CAT_ANIMATION_STEPS, punch, jump)
+player2 = Fighter(2, 800, 550, True, DOG_DATA, dog_sheet, DOG_ANIMATION_STEPS, punch, jump)
 
 # Loading the font
 count_font = pygame.font.Font("assets/fonts/turok.ttf", 200)
@@ -95,6 +97,7 @@ show_menu_buttons = True
 def draw_bg():
     scaled_bg = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(scaled_bg, (0, 0))
+
 
 # Drawing Health bar
 
