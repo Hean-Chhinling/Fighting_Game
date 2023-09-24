@@ -6,7 +6,10 @@
 
 
 
-https://github.com/Hean-Chhinling/Fighting_Game/assets/92643868/227236f8-3162-41ee-911a-7ac8f1738667
+
+https://github.com/Hean-Chhinling/Fighting_Game/assets/92643868/4f3a330d-5124-4f59-9b2b-2a5a81a1c7d3
+
+
 
 
 The Fighting Game is an entertaining two-player combat game with a playful background representation of the University of Debrecen in Hungary. 
